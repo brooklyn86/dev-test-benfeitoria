@@ -39788,7 +39788,7 @@ var render = function() {
           { staticClass: "card" },
           [
             _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
+              _vm._v("Listagem de Categorias")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
@@ -39846,7 +39846,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("First")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nome da Categoria")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Ação")])
       ])
@@ -39891,43 +39891,14 @@ var render = function() {
                   return _c("div", { key: index }, [
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "card shadow-sm" }, [
-                        _c(
-                          "svg",
-                          {
-                            staticClass: "bd-placeholder-img card-img-top",
-                            attrs: {
-                              width: "100%",
-                              height: "225",
-                              xmlns: "http://www.w3.org/2000/svg",
-                              role: "img",
-                              "aria-label": "Placeholder: Thumbnail",
-                              preserveAspectRatio: "xMidYMid slice",
-                              focusable: "false"
-                            }
-                          },
-                          [
-                            _c("title", [_vm._v("Placeholder")]),
-                            _c("rect", {
-                              attrs: {
-                                width: "100%",
-                                height: "100%",
-                                fill: "#55595c"
-                              }
-                            }),
-                            _c(
-                              "text",
-                              {
-                                attrs: {
-                                  x: "50%",
-                                  y: "50%",
-                                  fill: "#eceeef",
-                                  dy: ".3em"
-                                }
-                              },
-                              [_vm._v("Thumbnail")]
-                            )
-                          ]
-                        ),
+                        _c("img", {
+                          staticClass: "bd-placeholder-img card-img-top",
+                          attrs: {
+                            src: "/storage/" + post.url_image,
+                            width: "100%",
+                            height: "225"
+                          }
+                        }),
                         _vm._v(" "),
                         _c("div", { staticClass: "card-body" }, [
                           _c("p", { staticClass: "card-text" }, [

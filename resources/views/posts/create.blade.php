@@ -58,19 +58,20 @@
       </header>
       <main>
         <div class="container">
-            <form>
+            <form action="{{route('create.post')}}" method="POST" enctype='multipart/form-data'>
+              @csrf
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Titulo do Post</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" class="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Conteudo do Post</label>
-                    <textarea class="form-control"></textarea>
+                    <textarea class="form-control" name="content"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Categorias do Post</label>
-                    <select class="form-control">
+                    <select class="form-control" name="category">
                         @foreach($categories as $category)
                         
                         <option value="{{$category->id}}">{{$category->title}}</option>
@@ -81,27 +82,15 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Imagem do post</label>
-                    <input type="file" name="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="file" name="image" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
+               
                 <button type="submit" class="btn btn-primary">Cadastrar novo post</button>
             </form>
         </div>
       </main>
 
-      <footer class="text-muted py-5">
-        <div class="container">
-          <p class="float-end mb-1">
-            <a href="#">Back to top</a>
-          </p>
-          <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-          <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
-        </div>
-      </footer>
     </div>   
     
 

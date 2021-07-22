@@ -6,8 +6,11 @@ use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\PostImage;
 use Datatables;
 use DB;
+use Illuminate\Support\Facades\Auth;
+
 class PostController extends Controller
 {
     /**
@@ -17,7 +20,7 @@ class PostController extends Controller
      */
     public function index(Post $post)
     {
-        $response = $post->join('users', 'posts.id_author', 'users.id')->select('posts.*', 'users.name as author')->paginate(9);
+        $response = $post->join('users', 'posts.id_author', 'users.id')->leftjoin('post_images', 'posts.id', 'post_images.id_post')->select('posts.*', 'users.name as author', 'post_images.url_image')->paginate(9);
 
         return Response()->json($response);
     }
@@ -52,18 +55,17 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(Request $request)
     {
         try {
             DB::beginTransaction();
     
             //Recupera os dados do formulário
             $dataForm = $request->all();
-            
+            $dataForm['id_author'] = auth()->user()->id;
+            $dataForm['status'] = 1;
             $createPost = Post::create($dataForm);
-
             $nameFile = null;
- 
             // Verifica se informou o arquivo e se é válido
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 
@@ -77,25 +79,33 @@ class PostController extends Controller
                 $nameFile = "{$name}.{$extension}";
         
                 // Faz o upload:
-                $upload = $request->image->storeAs('posts', $nameFile);
+                $upload = $request->image->storeAs('public/posts', $nameFile);
                 // Se tiver funcionado o arquivo foi armazenado em storage/app/public/categories/nomedinamicoarquivo.extensao
         
                 // Verifica se NÃO deu certo o upload (Redireciona de volta)
-                if ( !$upload )
-                    DB::rollBack();
-                    return redirect()->back()->with('error', 'Falha ao fazer upload')->withInput();
+                // if ( !$upload )
+                //     DB::rollBack();
+                //     // return Response()->json(['error', 'Falha ao fazer upload'])->withInput();
+                //     return Response()->json(['error', 'Falha ao fazer upload']);
+
+                $imagem_post = new PostImage;
+                $imagem_post->id_post = $createPost->id;
+                $imagem_post->url_image = "posts/".$nameFile;
+                $imagem_post->status =  1;
+                $imagem_post->save();
             }
             if($createPost){
                 DB::commit();
-                return redirect()->back()->with(['error' => false, 'message' => 'Sucesso ao criar um novo post', 'data' => $createPost]);
+                return Redirect()->back()->with(['error' => false, 'message' => 'Sucesso ao criar um novo post', 'data' => $createPost]);
             }
             DB::rollBack();
-            return redirect()->back()->with(['error' => true, 'message' => 'Falha ao criar um novo post']);
+            return Redirect()->back()->with(['error' => true, 'message' => 'Falha ao criar um novo post']);
 
         } catch (\Throwable $th) {
+            dd($th);
             DB::rollBack();
 
-            return redirect()->back()->with(['error' => true, 'message' => 'Falha ao criar um novo post']);
+            return Redirect()->back()->with(['error' => true, 'message' => 'Falha ao criar um novo post']);
         }
     }
 

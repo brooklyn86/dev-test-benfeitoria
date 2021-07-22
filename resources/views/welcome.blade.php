@@ -3,10 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.84.0">
-    <title>Album example · Bootstrap v5.0</title>
+    <title>Teste Benfetoria</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
@@ -37,22 +34,59 @@
         <div class="navbar navbar-dark bg-dark shadow-sm">
           <div class="container">
             <a href="#" class="navbar-brand d-flex align-items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              <strong>Album</strong>
+              <img src="/imgs/white.png" alt="benfetoria" width="50%"/>
             </a>
-            @if (Route::has('login'))
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                @auth
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Postagens
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/create/post">Cadastrar novo post</a></li>
+                    <li><a class="dropdown-item" href="/list/posts">Listar Postagens</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Categorias
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Cadastrar nova categoria</a></li>
+                    <li><a class="dropdown-item" href="#">Listar Categorias</a></li>
+                  </ul>
+                </li>
+                @endauth
+                @if (Route::has('login'))
                   <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                       @auth
-                          <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
+                          <li class="nav-item">
+                            <a class="nav-link" href="#">Olá {{auth()->user()->name}}</a>
+                          </li>
                       @else
-                          <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
-
-                          @if (Route::has('register'))
-                              <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                          @endif
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                          </li>
+                        @if (Route::has('register'))
+                          <li class="nav-item">
+                            <a href="{{ route('register') }}" class="nav-link">Cadastre-se</a>
+                          </li> 
+                        @endif
                       @endauth
                   </div>
               @endif
+              </ul>
+
+            </div>
+            
           </div>
         </div>
       </header>
@@ -61,12 +95,9 @@
         <section class="py-5 text-center container">
           <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-              <h1 class="fw-light">Album example</h1>
-              <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-              <p>
-                <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-              </p>
+              <h1 class="fw-light">Um Pequeno Blog de Postagem</h1>
+              <p class="lead text-muted">Tentamos conectar você com a informação.</p>
+    
             </div>
           </div>
         </section>

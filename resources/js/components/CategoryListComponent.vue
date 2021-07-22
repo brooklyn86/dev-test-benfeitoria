@@ -3,14 +3,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Example Component</div>
+                    <div class="card-header">Listagem de Categorias</div>
 
                     <div class="card-body">
                         <table class="table" id="posts" >
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">First</th>
+                                    <th scope="col">Nome da Categoria</th>
                                     <th scope="col">Ação</th>
                                 </tr>
                             </thead>
