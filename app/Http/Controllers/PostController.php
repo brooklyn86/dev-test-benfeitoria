@@ -8,7 +8,6 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\PostImage;
 use App\Models\PostCategory;
-use Datatables;
 use DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,12 +42,6 @@ class PostController extends Controller
         return view('posts.list');
     }
 
-    public function listPost(Post $post)
-    {
-        $response = $post->join('users', 'posts.id_author', 'users.id')->select('posts.*', 'users.name as author', )->get();
-
-        return Datatables::collection($response)->toJson();
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -115,16 +108,15 @@ class PostController extends Controller
             }
             if($createPost){
                 DB::commit();
-                return Redirect()->back()->with(['error' => false, 'message' => 'Sucesso ao criar um novo post', 'data' => $createPost]);
+                return Redirect()->back()->with('success', 'Sucesso ao criar um novo post');
             }
             DB::rollBack();
-            return Redirect()->back()->with(['error' => true, 'message' => 'Falha ao criar um novo post']);
+            return Redirect()->back()->with('error','Falha ao criar um novo post');
 
         } catch (\Throwable $th) {
-            dd($th);
             DB::rollBack();
 
-            return Redirect()->back()->with(['error' => true, 'message' => 'Falha ao criar um novo post']);
+            return Redirect()->back()->with('error','Falha ao criar um novo post');
         }
     }
 

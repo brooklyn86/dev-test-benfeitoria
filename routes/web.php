@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
 
     //Rotas dos Posts
     Route::post('/create/category', [App\Http\Controllers\CategoryController::class, 'store'])->name('create.category');
-    Route::get('/api/list/categories', [App\Http\Controllers\CategoryController::class, 'listCategories'])->name('list.post');
+    Route::get('/api/list/categories', [App\Http\Controllers\CategoryController::class, 'listCategories'])->name('api.list.categories');
     Route::get('/api/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('api.list.category');
     Route::get('/list/categories', [App\Http\Controllers\CategoryController::class, 'list'])->name('list.category');
     Route::get('/create/category', [App\Http\Controllers\CategoryController::class, 'create'])->name('create.category.view');

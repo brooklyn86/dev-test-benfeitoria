@@ -43,7 +43,6 @@
                       <button type="button" class="btn btn-sm btn-outline-secondary">Ver Mais</button>
                     </div>
                     <small class="text-muted">Autor: {{post.author}}</small>
-                    <small class="text-muted">Categoria: {{post.category_name}}</small>
 
                   </div>
                 </div>

@@ -15,8 +15,12 @@ class CategoryController extends Controller
      */
     public function index(Request $request, Category $category)
     {
-        $response = $category->paginate(10);
+        if(isset($request->title) && !empty($request->title)){
+            $response = Category::where('title', 'like', '%'.$request->title.'%')->paginate(10);
+            return Response()->json($response);
+        }
 
+        $response = $category->paginate(10);
         return Response()->json($response);
     }
 
