@@ -99,6 +99,18 @@
             <div class="card-body">
               <h5 class="card-title">Nova Categoria</h5>
               <p class="card-text">Preencha todas as informações para criar um novo post.</p>
+              @if(session('success'))
+                <div class="alert alert-success">
+                  
+                    {{ session('success') }}
+                </div>
+              @endif
+            
+              @if(session('error'))
+                  <div class="alert alert-danger">
+                      {{ session('error') }}
+                  </div>
+              @endif
               <form action="{{route('create.category')}}" method="POST" >
                 @csrf
                   <div class="mb-3">

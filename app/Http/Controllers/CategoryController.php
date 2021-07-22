@@ -59,15 +59,15 @@ class CategoryController extends Controller
 
             if($newCategory){
                 DB::commit();
-                return Response()->json(['error' => false, 'message' => 'Sucesso ao cadastrar a categoria', 'data' => $newCategory]);
+                return  Redirect()->back()->with('success', 'Sucesso ao cadastrar a categoria');
             }
             DB::rollBack();
-            return Response()->json(['error' => true, 'message' => 'Falha ao criar uma nova categoria']);
+            return  Redirect()->back()->with('error','Falha ao criar uma nova categoria');
 
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            return Response()->json(['error' => true, 'message' => 'Falha ao criar uma nova categoria']);
+            return  Redirect()->back()->with('error', 'Falha ao criar uma nova categoria');
         }
        
          
@@ -140,15 +140,15 @@ class CategoryController extends Controller
 
             if($destroyCategory){
                 DB::commit();
-                return Response()->json(['error' => false, 'message' => 'Sucesso ao deletar a categoria']);
+               return  Redirect()->back()->with('success','Categoria removida com sucesso');
             }
             DB::rollBack();
-            return Response()->json(['error' => true, 'message' => 'Falha ao deletar uma nova categoria']);
+            return  Redirect()->back()->with('error','Falha ao criar uma nova categoria');
 
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            return Response()->json(['error' => true, 'message' => 'Falha ao deletar uma nova categoria']);
+            return  Redirect()->back()->with('error','Falha ao criar uma nova categoria');
         }
     }
 }

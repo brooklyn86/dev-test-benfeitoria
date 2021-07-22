@@ -212,18 +212,18 @@ class PostController extends Controller
     
                 if($destroyPost){
                     DB::commit();
-                    return redirect()->back()->with(['error' => false, 'message' => 'Sucesso ao deletar o post']);
+                    return redirect()->back()->with('success' ,'Sucesso ao deletar o post');
                 }
                 DB::rollBack();
-                return redirect()->back()->with(['error' => true, 'message' => 'Falha ao deletar o post selecionado']);
+                return redirect()->back()->with('error', 'Falha ao deletar o post selecionado');
             }
-            return redirect()->back()->with(['error' => true, 'message' => 'Falha ao deletar o post selecionado']);
+            return redirect()->back()->with('error','Falha ao deletar o post selecionado');
 
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            return redirect()->back()->with(['error' => true, 'message' => 'Falha ao deletar o post selecionado']);
+            return redirect()->back()->with('error' , 'Falha ao deletar o post selecionado');
         } 
-        return redirect()->back()->with(['error' => true, 'message' => 'Falha ao deletar o post selecionado']);
+        return redirect()->back()->with('error' , 'Falha ao deletar o post selecionado');
     }
 }
