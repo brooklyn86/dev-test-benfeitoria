@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
+use DB;
 class CategoryController extends Controller
 {
     /**
@@ -29,9 +30,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        
+        return view('category.create');
     }
 
     /**
@@ -40,15 +41,17 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(Request $request)
     {
         try {
             DB::beginTransaction();
     
             //Recupera os dados do formulário
             $dataForm = $request->all();
-            
-            $newCategory = Category::create($dataForm);
+            $category = new Category;
+            $category->title = $dataForm['title'];
+            $category->status = 1;
+            $newCategory = $category->save();
 
             if($newCategory){
                 DB::commit();

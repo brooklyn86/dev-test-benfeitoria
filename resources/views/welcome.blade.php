@@ -51,8 +51,8 @@
                     Postagens
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/create/post">Cadastrar novo post</a></li>
-                    <li><a class="dropdown-item" href="/list/posts">Listar Postagens</a></li>
+                    <li><a class="dropdown-item" href="{{route('create.post.view')}}">Cadastrar novo post</a></li>
+                    <li><a class="dropdown-item" href="{{route('list.post')}}">Listar Postagens</a></li>
                   </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -60,8 +60,8 @@
                     Categorias
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Cadastrar nova categoria</a></li>
-                    <li><a class="dropdown-item" href="#">Listar Categorias</a></li>
+                    <li><a class="dropdown-item" href="{{route('create.category.view')}}">Cadastrar nova categoria</a></li>
+                    <li><a class="dropdown-item" href="{{route('list.category')}}">Listar Categorias</a></li>
                   </ul>
                 </li>
                 @endauth

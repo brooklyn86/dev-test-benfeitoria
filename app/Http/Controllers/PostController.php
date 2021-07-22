@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\PostImage;
+use App\Models\PostCategory;
 use Datatables;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +19,22 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Post $post)
+    public function index(Request $request,Post $post)
     {
-        $response = $post->join('users', 'posts.id_author', 'users.id')->leftjoin('post_images', 'posts.id', 'post_images.id_post')->select('posts.*', 'users.name as author', 'post_images.url_image')->paginate(9);
+        
+        $query = $post->join('users', 'posts.id_author', 'users.id')->join('post_categories', 'posts.id', 'post_categories.id_post')
+        ->leftjoin('post_images', 'posts.id', 'post_images.id_post');
+        if(isset($request->title) && !empty($request->title)){
+            $query->where('posts.title', 'like', '%'.$request->title.'%');
+        }
+        if(isset($request->author) && !empty($request->author)){
+            $query->where('users.name', 'like', '%'.$request->author.'%');
+        }
+        if(isset($request->category) && !empty($request->category)){
+            $query->where('post_categories.id_category', $request->category);
+        }
+        
+        $response = $query->select('posts.*', 'users.name as author', 'post_images.url_image','post_categories.id_category as categoria')->paginate(9);
 
         return Response()->json($response);
     }
@@ -92,6 +106,11 @@ class PostController extends Controller
                 $imagem_post->id_post = $createPost->id;
                 $imagem_post->url_image = "posts/".$nameFile;
                 $imagem_post->status =  1;
+                $imagem_post->save();
+
+                $imagem_post = new PostCategory;
+                $imagem_post->id_post = $createPost->id;
+                $imagem_post->id_category =$request->category;
                 $imagem_post->save();
             }
             if($createPost){

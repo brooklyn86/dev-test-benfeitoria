@@ -34,9 +34,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/api/list/categories', [App\Http\Controllers\CategoryController::class, 'listCategories'])->name('list.post');
     Route::get('/api/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('api.list.category');
     Route::get('/list/categories', [App\Http\Controllers\CategoryController::class, 'list'])->name('list.category');
-    Route::post('/create/category', [App\Http\Controllers\CategoryController::class, 'store'])->name('create.category');
+    Route::get('/create/category', [App\Http\Controllers\CategoryController::class, 'create'])->name('create.category.view');
     Route::post('/update/category', [App\Http\Controllers\CategoryController::class, 'update'])->name('update.category');
-    Route::get('/destory/category/{id}', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('destroy.category');
+    Route::get('/api/destroy/category/{id}', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('destroy.category');
     
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
