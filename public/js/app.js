@@ -2043,9 +2043,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2121,8 +2118,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 page = _arguments2.length > 0 && _arguments2[0] !== undefined ? _arguments2[0] : 1;
                 _context2.next = 3;
-                return axios.get("/api/categories").then(function (_ref3) {
+                return axios.get("/api/list/categories").then(function (_ref3) {
                   var data = _ref3.data;
+                  console.log(data);
                   _this2.categoryItens = data;
                 })["catch"](function (_ref4) {
                   var response = _ref4.response;
@@ -61725,8 +61723,6 @@ var render = function() {
                                 "d-flex justify-content-between align-items-center"
                             },
                             [
-                              _vm._m(3, true),
-                              _vm._v(" "),
                               _c("small", { staticClass: "text-muted" }, [
                                 _vm._v("Autor: " + _vm._s(post.author))
                               ])
@@ -61785,21 +61781,6 @@ var staticRenderFns = [
         "label",
         { staticClass: "col-form-label", attrs: { for: "inputPassword6" } },
         [_vm._v("Autor")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "btn-group" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-sm btn-outline-secondary",
-          attrs: { type: "button" }
-        },
-        [_vm._v("Ver Mais")]
       )
     ])
   }

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\PostImage;
 use App\Models\PostCategory;
 use DB;
-use Illuminate\Support\Facades\Auth;
+
 
 class PostController extends Controller
 {
@@ -62,7 +62,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -88,12 +88,6 @@ class PostController extends Controller
                 // Faz o upload:
                 $upload = $request->image->storeAs('public/posts', $nameFile);
                 // Se tiver funcionado o arquivo foi armazenado em storage/app/public/categories/nomedinamicoarquivo.extensao
-        
-                // Verifica se NÃO deu certo o upload (Redireciona de volta)
-                // if ( !$upload )
-                //     DB::rollBack();
-                //     // return Response()->json(['error', 'Falha ao fazer upload'])->withInput();
-                //     return Response()->json(['error', 'Falha ao fazer upload']);
 
                 $imagem_post = new PostImage;
                 $imagem_post->id_post = $createPost->id;
@@ -149,50 +143,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreCategoryRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        try {
-            DB::beginTransaction();
-    
-            //Recupera os dados do formulário
-            $dataForm = $request->all();
-            
-            $updatePost = Post::update($dataForm);
 
-            // Verifica se informou o arquivo e se é válido
-            if ($request->hasFile('image') && $request->file('image')->isValid()) {
-    
-                // Define um aleatório para o arquivo baseado no timestamps atual
-                $name = uniqid(date('HisYmd'));
-        
-                // Recupera a extensão do arquivo
-                $extension = $request->image->extension();
-        
-                // Define finalmente o nome
-                $nameFile = "{$name}.{$extension}";
-        
-                // Faz o upload:
-                $upload = $request->image->storeAs('posts', $nameFile);
-                // Se tiver funcionado o arquivo foi armazenado em storage/app/public/categories/nomedinamicoarquivo.extensao
-        
-                // Verifica se NÃO deu certo o upload (Redireciona de volta)
-                if ( !$upload )
-                    DB::rollBack();
-                    return redirect()->back()->with('error', 'Falha ao fazer upload')->withInput();
-            }
-
-            if($updatePost){
-                DB::commit();
-                return Response()->json(['error' => false, 'message' => 'Sucesso ao atualizar o post', 'data' => $updatePost]);
-            }
-            DB::rollBack();
-            return Response()->json(['error' => true, 'message' => 'Falha ao atualizar o post']);
-
-        } catch (\Throwable $th) {
-            DB::rollBack();
-
-            return Response()->json(['error' => true, 'message' => 'Falha ao atualizar o post']);
-        }
     }
 
     /**

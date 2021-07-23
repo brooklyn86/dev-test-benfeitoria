@@ -24,6 +24,12 @@ class CategoryController extends Controller
         return Response()->json($response);
     }
 
+    public function listCategory(Request $request, Category $category)
+    {
+        $response = $category->all();
+        return Response()->json($response);
+    }
+
     public function list(Category $category)
     {
         return view('category.list');
@@ -45,7 +51,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -102,27 +108,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreCategoryRequest $request, $id)
+    public function update($request, $id)
     {
-        try {
-            DB::beginTransaction();
 
-            $dataForm = $request->all();
-
-            $updateCategory = Category::update($dataForm);
-
-            if($updateCategory){
-                DB::commit();
-                return Response()->json(['error' => false, 'message' => 'Sucesso ao deletar a categoria', 'data' => $updateCategory]);
-            }
-            DB::rollBack();
-            return Response()->json(['error' => true, 'message' => 'Falha ao deletar uma nova categoria']);
-
-        } catch (\Throwable $th) {
-            DB::rollBack();
-
-            return Response()->json(['error' => true, 'message' => 'Falha ao deletar uma nova categoria']);
-        }
     }
 
     /**

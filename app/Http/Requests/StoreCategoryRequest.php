@@ -13,7 +13,7 @@ class StoreCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth();
     }
 
     /**
@@ -25,6 +25,15 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'title' => 'required|unique:categories|max:50',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'O campo Nome da categoria é um campo obrigatório',
+            'title.max' => 'O tamanho máximo da categoria é de até 50 caracteres',
+            'title.unique' => 'Já existe uma categoria com esse mesmo nome'
         ];
     }
 }

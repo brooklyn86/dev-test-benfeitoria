@@ -39,9 +39,6 @@
                   <p class="card-text">{{post.content.substr(0, 250)}}...</p>
                   <p class="card-text">Data de publicação:{{getHumanDate(post.created_at)}}</p>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Ver Mais</button>
-                    </div>
                     <small class="text-muted">Autor: {{post.author}}</small>
 
                   </div>
@@ -102,7 +99,7 @@
               })
           },
            async loadCategory(page=1){
-              await axios.get(`/api/categories`).then(({data})=>{
+              await axios.get(`/api/list/categories`).then(({data})=>{
                   this.categoryItens = data
               }).catch(({ response })=>{
                   console.error(response)

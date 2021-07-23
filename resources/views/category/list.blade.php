@@ -3,12 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.84.0">
-    <title>Album example · Bootstrap v5.0</title>
+ 
+    <title> Teste Benfetoria</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+     
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -74,6 +72,9 @@
                           <li class="nav-item">
                             <a class="nav-link" href="#">Olá {{auth()->user()->name}}</a>
                           </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{route('logout')}}">Sair</a>
+                          </li>
                       @else
                           <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -95,18 +96,7 @@
       </header>
       <main>
         <div class="py-5 container">
-          @if(session('success'))
-            <div class="alert alert-success">
-              
-                {{ session('success') }}
-            </div>
-          @endif
-        
-          @if(session('error'))
-              <div class="alert alert-danger">
-                  {{ session('error') }}
-              </div>
-          @endif
+          @include('layouts.alerts')
         </div>
         <categorylistcomponent></categorylistcomponent>
       </main>
